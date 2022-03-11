@@ -1,42 +1,58 @@
 import { Divider, Icon, Table } from "antd";
-import React from "react";
-
+import React, { useEffect, useState } from "react";
+import axios from 'util/Api'
 import IntlMessages from "util/IntlMessages";
-const columns = [{
+const columns = [
+  {
+    title: 'Id',
+    dataIndex: 'ID',
+    key: 'id',
+    width: 50,
+    render: (item, record, index) => (<>{index + 1}</>)
+  },{
   title: 'Name',
-  dataIndex: 'name',
-  key: 'name',
-  width: 150,
+  dataIndex: 'username',
+  key: 'username',
+  width: 100,
   render: text => <span className="gx-link">{text}</span>,
 }, {
-  title: 'Age',
-  dataIndex: 'age',
-  key: 'age',
-  width: 70,
+  title: 'Email',
+  dataIndex: 'email',
+  key: 'email',
+  render: text => <span className="gx-link">{text}</span>,
 }, {
-  title: 'Address',
-  dataIndex: 'address',
-  key: 'address',
-}, {
-  title: 'Action',
-  key: 'action',
-  width: 360,
-  render: (text, record) => (
-    <span>
-      <span className="gx-link">Action 一 {record.name}</span>
-      <Divider type="vertical" />
-      <span className="gx-link">Delete</span>
-      <Divider type="vertical" />
-      <span className="gx-link ant-dropdown-link">
-        More actions <Icon type="down" />
-      </span>
-    </span>
-  ),
-}];
+  title: 'Phone',
+  dataIndex: 'phone',
+  key: 'phone',
+  render: text => <span className="gx-link">{text}</span>,
+},
+, {
+  title: 'Roles',
+  dataIndex: 'roles[0].rolename',
+  key: 'roles[0].rolename',
+  render: text => <span className="gx-link">{text}</span>,
+}
+];
 const scroll = { y: 240 };
-const data = [];
 
 const Customer = () => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    getCustomerList();
+  }, []);
+
+  const getCustomerList = () => {
+    axios.get('/user-list',
+    ).then(({ data }) => {
+      if (data.result) {
+        console.log(data.result);
+        setData(data.result)
+      }
+    }).catch(function (error) {
+      console.log("product-list Error****:", error.message);
+    });
+  }
   const state = {
     bordered: true,
     loading: false,
@@ -52,7 +68,7 @@ const Customer = () => {
   };
   return (
     <div>
-      <h2 className="title gx-mb-4"><IntlMessages id="Customer"/></h2>
+      <h2 className="title gx-mb-4"><IntlMessages id="Customer" /></h2>
       <Table className="gx-table-responsive" {...state} columns={columns} dataSource={data} />
 
     </div>
