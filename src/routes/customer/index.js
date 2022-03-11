@@ -1,4 +1,4 @@
-import { Divider, Icon, Table } from "antd";
+import {  Table } from "antd";
 import React, { useEffect, useState } from "react";
 import axios from 'util/Api'
 import IntlMessages from "util/IntlMessages";
@@ -26,7 +26,7 @@ const columns = [
   key: 'phone',
   render: text => <span className="gx-link">{text}</span>,
 },
-, {
+ {
   title: 'Roles',
   dataIndex: 'roles[0].rolename',
   key: 'roles[0].rolename',

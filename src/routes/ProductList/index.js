@@ -1,16 +1,15 @@
 import React, { Component } from "react";
 import SweetAlert from "react-bootstrap-sweetalert";
-import ImgCrop from 'antd-img-crop';
+// import ImgCrop from 'antd-img-crop';
 import { Button, Modal, Col, Divider, Form, Input, Row, Select, Table, Upload, notification } from "antd";
 import axios from 'util/Api'
-import IntlMessages from "../../util/IntlMessages"
-import { Link } from "react-router-dom";
+import IntlMessages from "../../util/IntlMessages";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { done } from "nprogress";
+// import { done } from "nprogress";
 import Axios from "axios";
 const FormItem = Form.Item;
-const expandedRowRender = record => <p>{record.description}</p>;
-const scroll = { y: 540 };
+// const expandedRowRender = record => <p>{record.description}</p>;
+// const scroll = { y: 540 };
 const { Option } = Select;
 
 
@@ -33,12 +32,24 @@ class ProductsList extends Component {
       rowSelection: undefined,
       scroll: undefined,
       imagevisable: true,
-      products: []
+      products: [],
+      categorylist:[]
     };
   }
   componentDidMount() {
 
     this.getPoductsList();
+    this.getcategoryList();
+  }
+  getcategoryList = () => {
+    axios.get('/category/category-list',
+    ).then(({ data }) => {
+      if (data.result) {
+        this.setState({ categorylist: data.result });
+      }
+    }).catch(function (error) {
+      console.log("product-list Error****:", error.message);
+    });
   }
   getPoductsList = () => {
     axios.get('/product/product-list',
@@ -144,7 +155,7 @@ class ProductsList extends Component {
   render() {
 
     const { getFieldDecorator } = this.props.form;
-    const { products, prompt, EditModel, editModelValue, catName, warning, imagevisable } = this.state;
+    const { products, prompt, EditModel, editModelValue, catName, warning ,categorylist} = this.state;
     console.log(products);
     const onPreview = async file => {
       let src = file.url;
@@ -173,7 +184,7 @@ class ProductsList extends Component {
         dataIndex: 'imageURL',
         key: 'imageURL',
         width: 100,
-        render: text => <img src={text} className="gx-link" />,
+        render: text => <img src={text} alt={text.name} className="gx-link" />,
       }, {
         title: 'Name',
         dataIndex: 'name',
@@ -303,7 +314,7 @@ class ProductsList extends Component {
                       className="upload-list-inline"
                       onPreview={onPreview}
                       onClick={() => this.state({ imagevisable: false })}
-                    
+
                     >
                       <Input
                         style={{ width: 191 }}
@@ -352,11 +363,10 @@ class ProductsList extends Component {
                       placeholder="Select a Category"
                       style={{ width: 191 }}
                     >
-                      {/* {categorylist ? categorylist.map((list, index) => {
+                      {categorylist ? categorylist.map((list, index) => {
                             return (<Option key={index} value={list.name}>{list.name}</Option>)
                         }
-                        ) : ""} */}
-                      <Option value={"saree"}>saree</Option>
+                        ) : ""}
                     </Select>
                   )}
                 </FormItem>
@@ -472,11 +482,10 @@ class ProductsList extends Component {
                       placeholder="Select a Category"
                       style={{ width: 191 }}
                     >
-                      {/* {categorylist ? categorylist.map((list, index) => {
+                      {categorylist ? categorylist.map((list, index) => {
                             return (<Option key={index} value={list.name}>{list.name}</Option>)
                         }
-                        ) : ""} */}
-                      <Option value={"saree"}>saree</Option>
+                        ) : ""}
                     </Select>
                   )}
                 </FormItem>

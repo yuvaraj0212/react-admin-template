@@ -1,6 +1,4 @@
 import React from "react";
-
-import IntlMessages from "util/IntlMessages";
 import ProfileHeader from "../../components/profile/ProfileHeader";
 
 const Setting = () => {

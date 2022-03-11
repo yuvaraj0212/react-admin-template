@@ -1,13 +1,11 @@
-import { Button, Col, Divider, Form, Icon, Input, message, Modal, notification, Row, Table, Upload } from "antd";
-import React, { useEffect, useState } from "react";
+import { Button,  Divider, Form, Input, Modal, notification,  Table, Upload } from "antd";
+import React from "react";
 import axios from 'util/Api'
 import IntlMessages from "util/IntlMessages";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { status } from "nprogress";
 import Axios from "axios";
 import SweetAlert from "react-bootstrap-sweetalert";
-import { FETCH_START } from "../../constants/ActionTypes";
-const scroll = { y: 240 };
+// const scroll = { y: 240 };
 const FormItem = Form.Item;
 
 class Categories extends React.Component {
@@ -126,10 +124,10 @@ class Categories extends React.Component {
       bordered: true,
       loading: false,
       // pagination,
-      size: 'default',
+      size: 'small',
       // expandedRowRender,
       title: undefined,
-      // showHeader,
+      showHeader: true,
       // footer,
       rowSelection: undefined,
       scroll: undefined,
@@ -140,33 +138,28 @@ class Categories extends React.Component {
         title: 'Id',
         dataIndex: 'ID',
         key: 'id',
-        width: 50,
         render: (item, record, index) => (<>{index + 1}</>)
       },
       {
         title: 'Image',
         dataIndex: 'imageURL',
         key: 'imageURL',
-        width: 100,
-        render: text => <img src={text} className="gx-link" />,
+        render: text => <img width={80} src={text} alt={text.name} className="gx-link" />,
       }, {
         title: 'Name',
         dataIndex: 'name',
         key: 'name',
-        width: 250,
         render: text => <span className="gx-link">{text}</span>,
       },
       {
         title: 'Description',
         dataIndex: 'desc',
         key: 'description',
-        width: 250,
         render: text => <span className="gx-link">{text}</span>,
       },
       {
         title: 'Action',
         key: 'action',
-        width: 160,
         render: (text, record) => {
           console.log(text);
           return (

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {  Divider, Icon,  Table } from "antd";
+import {   Table } from "antd";
 import IntlMessages from "util/IntlMessages";
 import axios from 'util/Api'
 import moment from "moment";
@@ -29,7 +29,7 @@ const columns = [
   key: 'phone',
   render: text => <span className="gx-link">{text}</span>,
 },
-, {
+{
   title: 'Status',
   dataIndex: 'orderStatus',
   key: 'Status',
