@@ -80,6 +80,12 @@ class SidebarContent extends Component {
                 <IntlMessages
                   id="Customers" /></Link>
             </Menu.Item>
+            <Menu.Item key="PROMO">
+              <Link to="/promo">
+                <i className="icon icon-revenue-new" />
+                <IntlMessages
+                  id="PROMO" /></Link>
+            </Menu.Item>
             <Menu.Item key="setting">
               <Link to="/setting">
                 <i className="icon icon-setting" />
